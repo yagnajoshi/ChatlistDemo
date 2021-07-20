@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.chat.listdemo.models.ChatDataModel" />
+
+        <variable
+            name="itemClickListener"
+            type="com.chat.listdemo.interfaces.OnItemClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.chat.listdemo.swipemenu.SwipeMenuLayout
+            android:id="@+id/itemSwipeMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentView="@+id/container"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:leftMenuView="@+id/left"
+            app:rightMenuView="@+id/right">
+
+            <LinearLayout
+                android:id="@+id/left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/slide_unread"
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_darkblue_ripple"
+                    android:gravity="center"
+                    android:onClick="@{() -> itemClickListener.onUnreadClick(model)}"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_22sdp"
+                        android:layout_height="@dimen/_22sdp"
+                        android:src="@drawable/ic_unread_24"
+                        app:tint="@color/white"
+                        android:contentDescription="@string/txt_unread" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:text="@string/txt_unread"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_10ssp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_white_ripple"
+                android:elevation="@dimen/_5sdp"
+                android:onClick="@{() -> itemClickListener.onItemClick(model)}"
+                android:orientation="horizontal"
+                android:padding="@dimen/_3sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvAvatar"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="250dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_50sdp"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="250dp">
+
+                        <ImageView
+                            android:id="@+id/imgAvatar"
+                            imageResource="@{model.avatar}"
+                            android:layout_width="@dimen/_50sdp"
+                            android:layout_height="@dimen/_50sdp"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="@{model.name}" />
+
+                    </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
+
+
+                <TextView
+                    android:id="@+id/txtName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:text="@{model.name}"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    app:layout_constraintEnd_toStartOf="@id/txtDate"
+                    app:layout_constraintStart_toEndOf="@+id/cvAvatar"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtLastChat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:text="@{model.lastText}"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    app:layout_constraintStart_toEndOf="@+id/cvAvatar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtName" />
+
+                <TextView
+                    android:id="@+id/txtDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/txtName"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:gravity="end"
+                    android:text="@{model.date}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/purple_500"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/slide_more"
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_grey_ripple"
+                    android:gravity="center"
+                    android:onClick="@{() -> itemClickListener.onMoreClick(model)}"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_22sdp"
+                        android:layout_height="@dimen/_22sdp"
+                        android:src="@drawable/ic_more_24"
+                        app:tint="@color/white"
+                        android:contentDescription="@string/txt_more" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:text="@string/txt_more"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_10ssp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/white" />
+
+                <LinearLayout
+                    android:id="@+id/slide_call"
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_skybule_ripple"
+                    android:gravity="center"
+                    android:onClick="@{() -> itemClickListener.onCallClick(model)}"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_22sdp"
+                        android:layout_height="@dimen/_22sdp"
+                        android:src="@drawable/ic_call_24"
+                        app:tint="@color/white"
+                        android:contentDescription="@string/txt_call" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:text="@string/txt_call"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_10ssp" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </com.chat.listdemo.swipemenu.SwipeMenuLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/grey_light"
+            app:layout_constraintTop_toBottomOf="@id/itemSwipeMenu" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

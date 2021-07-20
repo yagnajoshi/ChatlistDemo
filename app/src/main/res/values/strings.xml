@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ChatList Demo</string>
+    <string name="txt_more">More</string>
+    <string name="txt_call">Call</string>
+    <string name="txt_unread">Unread</string>
+    <string name="txt_avatar">Avatar</string>
+</resources>
