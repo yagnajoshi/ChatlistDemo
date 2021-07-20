@@ -7,7 +7,7 @@
 \# Swipe menu <br/>
 
 <B> Screenshots:</B><Br/>
-<table><tr>'
+<table><tr>
   <td><img height="440px" width="220px" src="Screenshots/demo_gif.gif"/></td>
   </tr></table>
 
